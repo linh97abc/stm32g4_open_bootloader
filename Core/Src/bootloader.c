@@ -18,7 +18,9 @@ int main_task()
 	OPENBL_HandleTypeDef interface;
 
 	extern OPENBL_MemoryTypeDef FLASH_Descriptor;
+	extern OPENBL_MemoryTypeDef ICP_Descriptor;
 	OPENBL_MEM_RegisterMemory(&FLASH_Descriptor);
+	OPENBL_MEM_RegisterMemory(&ICP_Descriptor);
 
 	if(*(uint32_t*)RETAIN_MEM != 1)
 	{
@@ -38,6 +40,8 @@ int main_task()
 
 	OPENBL_RegisterInterface(&interface);
 	OPENBL_Init();
+
+	OPENBL_InterfaceDetection();
 
 	while(1)
 	{

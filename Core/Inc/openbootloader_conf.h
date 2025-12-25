@@ -32,7 +32,7 @@ extern "C" {
 
 /* -------------------------------- Device ID ------------------------------- */
 #define DEVICE_ID_MSB                     0x04U  /* MSB byte of device ID */
-#define DEVICE_ID_LSB                     0x82U  /* LSB byte of device ID */
+#define DEVICE_ID_LSB                     0x68U  /* LSB byte of device ID */
 
 /* -------------------------- Definitions for Memories ---------------------- */
 #define FLASH_MEM_SIZE                    (2048U * 1024U)                 /* Size of Flash 2 MByte */
@@ -53,8 +53,8 @@ extern "C" {
 #define OTP_START_ADDRESS                 0x08FFF000U                     /* OTP start address */
 #define OTP_END_ADDRESS                   (OTP_START_ADDRESS + OTP_SIZE)  /* OTP end address */
 
-#define ICP_SIZE                          (35U * 1024U)                   /* Size of ICP 35 kByte */
-#define ICP_START_ADDRESS                 0x0BF97000U                     /* System memory start address */
+#define ICP_SIZE                          (0x10000)                   /* Size of ICP 35 kByte */
+#define ICP_START_ADDRESS                 0x1FFF0000U                     /* System memory start address */
 #define ICP_END_ADDRESS                   (ICP_START_ADDRESS + ICP_SIZE)  /* System memory end address */
 
 #define EB_SIZE                           156U                            /* Size of Engi bytes 156 Byte */

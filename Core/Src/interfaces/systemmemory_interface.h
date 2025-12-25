@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    interfaces_conf.h
+  * @file    systemmemory_interface.h
   * @author  MCD Application Team
-  * @brief   Contains Interfaces configuration
+  * @brief   Header for systemmemory_interface.c module
   ******************************************************************************
   * @attention
   *
@@ -17,24 +17,22 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef INTERFACES_CONF_H
-#define INTERFACES_CONF_H
+#ifndef SYSTEMMEMORY_INTERFACE_H
+#define SYSTEMMEMORY_INTERFACE_H
 
 #ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32g4xx_hal.h"
-
-#define MEMORIES_SUPPORTED                2U
-
-
-
-
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+uint8_t OPENBL_ICP_Read(uint32_t Address);
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
+#endif
 
-#endif /* INTERFACES_CONF_H */
+#endif /* SYSTEMMEMORY_INTERFACE_H */
