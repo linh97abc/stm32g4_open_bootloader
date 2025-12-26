@@ -21,6 +21,7 @@
 #include "openbl_core.h"
 
 #include "interfaces_conf.h"
+#include <stddef.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

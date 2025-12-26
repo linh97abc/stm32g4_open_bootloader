@@ -25,13 +25,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32g4xx_hal.h"
+#include "main.h"
 
 #define MEMORIES_SUPPORTED                2U
 
 
 
-
+#define USARTx USART2
 
 #ifdef __cplusplus
 }

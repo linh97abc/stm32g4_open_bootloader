@@ -24,7 +24,7 @@
 #include "usart_interface.h"
 //#include "iwdg_interface.h"
 
-extern UART_HandleTypeDef huart2;
+//extern UART_HandleTypeDef huart2;
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -125,16 +125,16 @@ uint8_t OPENBL_USART_GetCommandOpcode(void)
   */
 uint8_t OPENBL_USART_ReadByte(void)
 {
-//  while (!LL_USART_IsActiveFlag_RXNE_RXFNE(USARTx))
-//  {
-////    OPENBL_IWDG_Refresh();
-//  }
-//
-//  return LL_USART_ReceiveData8(USARTx);
+  while (!LL_USART_IsActiveFlag_RXNE_RXFNE(USARTx))
+  {
+//    OPENBL_IWDG_Refresh();
+  }
 
-  uint8_t c;
-  while(HAL_UART_Receive(&huart2, &c, 1, HAL_MAX_DELAY) != HAL_OK) {}
-  return c;
+  return LL_USART_ReceiveData8(USARTx);
+
+//  uint8_t c;
+//  while(HAL_UART_Receive(&huart2, &c, 1, HAL_MAX_DELAY) != HAL_OK) {}
+//  return c;
 }
 
 /**
@@ -144,13 +144,13 @@ uint8_t OPENBL_USART_ReadByte(void)
   */
 void OPENBL_USART_SendByte(uint8_t Byte)
 {
-//  LL_USART_TransmitData8(USARTx, (Byte & 0xFF));
-//
-//  while (!LL_USART_IsActiveFlag_TC(USARTx))
-//  {
-//  }
+  LL_USART_TransmitData8(USARTx, (Byte & 0xFF));
 
-  HAL_UART_Transmit(&huart2, &Byte, 1, HAL_MAX_DELAY);
+  while (!LL_USART_IsActiveFlag_TC(USARTx))
+  {
+  }
+
+//  HAL_UART_Transmit(&huart2, &Byte, 1, HAL_MAX_DELAY);
 }
 
 /**
