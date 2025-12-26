@@ -154,6 +154,48 @@ void OPENBL_FLASH_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
   OPENBL_FLASH_Lock();
 }
 
+//typedef void (*pFunction)(void);
+//
+//void JumpToApplication(uint32_t Address)
+//{
+//    pFunction JumpToApp;
+//
+//    /* Disable all interrupts */
+//    __disable_irq();
+//
+//    /* Stop SysTick */
+//    SysTick->CTRL = 0;
+//    SysTick->LOAD = 0;
+//    SysTick->VAL  = 0;
+//
+//    /* Deinit bootloader HW */
+////    OpenBootloader_DeInit();
+////    HAL_RCC_DeInit();
+////    HAL_DeInit();
+//
+//    /* Disable all NVIC interrupts */
+//    for (uint32_t i = 0; i < 8; i++)
+//    {
+//        NVIC->ICER[i] = 0xFFFFFFFF;
+//        NVIC->ICPR[i] = 0xFFFFFFFF;
+//    }
+//
+//    /* Set Vector Table to Application */
+//    SCB->VTOR = Address;
+//
+//    /* Set MSP to application's stack pointer */
+//    __set_MSP(*(__IO uint32_t *) Address);
+//
+//    /* Get application's Reset_Handler */
+//    JumpToApp = (pFunction)(*(__IO uint32_t *)(Address + 4U));
+//
+//    /* Enable IRQ (optional, app usually enables itself) */
+//    __enable_irq();
+//
+//    /* Jump */
+//    JumpToApp();
+//}
+
 /**
   * @brief  This function is used to jump to a given address.
   * @param  Address The address where the function will jump.
@@ -161,22 +203,44 @@ void OPENBL_FLASH_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
   */
 void OPENBL_FLASH_JumpToAddress(uint32_t Address)
 {
-  Function_Pointer jump_to_address;
 
-  /* De-initialize all HW resources used by the Open Bootloader to their reset values */
-  OPENBL_DeInit();
 
-//  /* Enable IRQ */
-//  Common_EnableIrq();
+	  Function_Pointer jump_to_address;
 
-  Common_DisableIrq();
+	  /* Deinitialize all HW resources used by the Bootloader to their reset values */
 
-  jump_to_address = (Function_Pointer)(*(__IO uint32_t *)(Address + 4U));
+	    /* Disable all interrupts */
+	    __disable_irq();
 
-  /* Initialize user application's stack pointer */
-  Common_SetMsp(*(__IO uint32_t *) Address);
+	    /* Stop SysTick */
+	    SysTick->CTRL = 0;
+	    SysTick->LOAD = 0;
+	    SysTick->VAL  = 0;
 
-  jump_to_address();
+
+		/* Disable all NVIC interrupts */
+		for (uint32_t i = 0; i < 8; i++)
+		{
+			NVIC->ICER[i] = 0xFFFFFFFF;
+			NVIC->ICPR[i] = 0xFFFFFFFF;
+		}
+
+
+	    /* Set Vector Table to Application */
+	    SCB->VTOR = Address;
+
+
+
+
+	  /* Initialize user application's stack pointer */
+	    __set_MSP(*(__IO uint32_t *) Address);
+	  jump_to_address = (Function_Pointer)(*(__IO uint32_t *)(Address + 4U));
+
+	  __enable_irq();
+	  jump_to_address();
+
+
+
 }
 
 /**
