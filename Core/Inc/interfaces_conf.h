@@ -31,7 +31,7 @@ extern "C" {
 
 
 
-#define USARTx USART2
+#define USARTx USART3
 
 #ifdef __cplusplus
 }
